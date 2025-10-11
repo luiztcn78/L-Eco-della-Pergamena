@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Eco della Pergamena</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-header">
+            <h1 id="game-title">L'Eco della Pergamena</h1>
+            <p id="game-subtitle">The Echo of the Parchment - A Medieval Monastery Adventure</p>
+        </div>
+        
+        <div id="game-content">
+            <div id="game-scene">
+                <div id="diary" class="clickable-item"></div>
+                <div id="diary-label" class="item-label">Brother Giovanni's Diary</div>
+                
+                <div id="lectionary" class="clickable-item"></div>
+                <div id="lectionary-label" class="item-label">Lectionary</div>
+                
+                <div id="stained-glass" class="clickable-item"></div>
+                <div id="stained-glass-label" class="item-label">Stained Glass Window</div>
+            </div>
+            
+            <div id="game-ui">
+                <div id="message-box">
+                    <p id="message">Welcome to the Monastery of Monte Cassino. The Abbot has given you a single task: find the legendary 'Echo of the Parchment' containing a divine melody lost in time. Click on objects to interact with them.</p>
+                </div>
+                
+                <div id="inventory">
+                    <h3 id="inventory-title">Clues Collected</h3>
+                    <div id="inventory-items">
+                        <div id="diary-icon" class="inventory-item">📓</div>
+                        <div id="verse-icon" class="inventory-item">📜</div>
+                        <div id="codex-icon" class="inventory-item">📖</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="game-footer">
+            <p>L'Eco della Pergamena - A Point & Click Adventure</p>
+            <p id="instructions">Hover over objects to see their names. Click to interact.</p>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
