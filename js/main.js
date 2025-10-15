@@ -5,8 +5,11 @@ import { MESSAGES, ELEMENTS } from './constants.js';
 
 class GameController {
     constructor() {
-        this.initializeGame();
-        this.setupEventListeners();
+        // Aguardar um frame para garantir que o DOM está totalmente renderizado
+        setTimeout(() => {
+            this.initializeGame();
+            this.setupEventListeners();
+        }, 0);
     }
 
     // Initialize game state and UI
@@ -17,6 +20,11 @@ class GameController {
         
         // Log initialization for debugging
         console.log('Game initialized with state:', gameState.export());
+        console.log('DOM elements found:', {
+            diary: document.getElementById(ELEMENTS.DIARY),
+            lectionary: document.getElementById(ELEMENTS.LECTIONARY),
+            stainedGlass: document.getElementById(ELEMENTS.STAINED_GLASS)
+        });
     }
 
     // Set up all event listeners
@@ -25,14 +33,31 @@ class GameController {
         const lectionary = uiManager.getElement(ELEMENTS.LECTIONARY);
         const stainedGlass = uiManager.getElement(ELEMENTS.STAINED_GLASS);
 
+        console.log('Setting up event listeners for:', { diary, lectionary, stainedGlass });
+
         // Diary interaction
-        uiManager.addEventListener(diary, 'click', () => this.handleDiaryClick());
+        if (diary) {
+            uiManager.addEventListener(diary, 'click', () => this.handleDiaryClick());
+            console.log('Diary event listener added');
+        } else {
+            console.error('Diary element not found');
+        }
 
         // Lectionary interaction
-        uiManager.addEventListener(lectionary, 'click', () => this.handleLectionaryClick());
+        if (lectionary) {
+            uiManager.addEventListener(lectionary, 'click', () => this.handleLectionaryClick());
+            console.log('Lectionary event listener added');
+        } else {
+            console.error('Lectionary element not found');
+        }
 
         // Stained glass interaction
-        uiManager.addEventListener(stainedGlass, 'click', () => this.handleStainedGlassClick());
+        if (stainedGlass) {
+            uiManager.addEventListener(stainedGlass, 'click', () => this.handleStainedGlassClick());
+            console.log('Stained glass event listener added');
+        } else {
+            console.error('Stained glass element not found');
+        }
 
         // Debug functionality
         uiManager.addEventListener(document, 'keydown', (e) => this.handleKeyPress(e));
@@ -40,6 +65,7 @@ class GameController {
 
     // Handle diary click event
     handleDiaryClick() {
+        console.log('Diary clicked!');
         if (!gameState.diaryRead) {
             uiManager.updateMessage(MESSAGES.DIARY_FIRST);
             gameState.diaryRead = true;
@@ -52,6 +78,7 @@ class GameController {
 
     // Handle lectionary click event
     handleLectionaryClick() {
+        console.log('Lectionary clicked!');
         if (gameState.diaryRead && !gameState.verseFound) {
             uiManager.updateMessage(MESSAGES.LECTIONARY_SECOND);
             gameState.verseFound = true;
@@ -66,6 +93,7 @@ class GameController {
 
     // Handle stained glass click event
     handleStainedGlassClick() {
+        console.log('Stained glass clicked!');
         if (gameState.verseFound && !gameState.codexFound) {
             uiManager.updateMessage(MESSAGES.STAINED_GLASS_SECOND);
             gameState.codexFound = true;
@@ -94,6 +122,11 @@ class GameController {
         // 'D' key for debug info
         if (event.key === 'd' || event.key === 'D') {
             console.log('Current game state:', gameState.export());
+            console.log('DOM elements:', {
+                diary: document.getElementById(ELEMENTS.DIARY),
+                lectionary: document.getElementById(ELEMENTS.LECTIONARY),
+                stainedGlass: document.getElementById(ELEMENTS.STAINED_GLASS)
+            });
         }
         
         // 'R' key to reset game
@@ -108,6 +141,7 @@ class GameController {
 
 // Initialize the game when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded, initializing game...');
     const game = new GameController();
     
     // Make game instance available globally for debugging
